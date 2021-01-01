@@ -20,7 +20,7 @@
       // This helper function allows us to label tests in the console and to reuse our "result" and "expected" variable names multiple times
       function test(name, functionToBeTested) {
 
-        // Using assertion object with tests in it allows our equal test to know that it was called inside the "correctly squares integers" assertion, real testing libraries using this feature to keep track of which tests failed and which passed within our assertions
+        // Using assertion object with tests in it allows our equal test to know that it was called inside the "correctly squares integers" assertion, real testing libraries using this feature to keep track of which tests failed and which passed within our named assertions
         const assertions = {equal, notEqual}
 
         console.group(name)
