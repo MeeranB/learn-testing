@@ -15,54 +15,44 @@
         return x * x;
       }
 
-      // Testing instances
-      const result = square(2);
-      const expected = 500;
-      equal(result, expected);
+      //An assertion is something we want to be true in order for us to know the code we wrote is running as expected, and a test is a specific instance with a predicate we know to be true
 
-      const result2 = square(3.5);
-      const expected2 = 12.25;
-      equal(result2, expected2)
-
-      // Here we test that our call is notEqual to something
-      const result3 = square(3)
-      const expected3 = 10
-      notEqual(result3, expected3)
-
-      // Our first test-helper function
-      // Message argument allows us to add more details to our test calls
-      function equal(x, y, message = `${x} is equal to ${y}`) {
-        if (x === y) {
-          console.info(`Pass: ${message}`)
-        } else {
-          console.error(`Fail: ${message}`)
-        }
-      }
-
-      function notEqual(x, y) {
-        if (x !== y) {
-          console.info(`${x} is not equal to ${y}`)
-        } else {
-          console.error(`${x} is equal to ${y}`)
-        }
-      }
-
-      // This helped function allows us to label tests in the console and to reuse our "result" and "expected" variable names multiple times
+      // This helper function allows us to label tests in the console and to reuse our "result" and "expected" variable names multiple times
       function test(name, functionToBeTested) {
+
+        // Using assertion object with tests in it allows our equal test to know that it was called inside the "correctly squares integers" assertion, real testing libraries using this feature to keep track of which tests failed and which passed within our assertions
+        const assertions = {equal, notEqual}
+
         console.group(name)
-        functionToBeTested()
+        functionToBeTested(assertions)
         console.groupEnd()
+
+        // Message argument allows us to add more details to our test calls
+        function equal(x, y, message = `${x} is equal to ${y}`) {
+          if (x === y) {
+            console.info(`Pass: ${message}`)
+          } else {
+            console.error(`Fail: ${message}`)
+          }
+        }
+
+        function notEqual(x, y, message = `Expected ${x} to not equal ${y}`) {
+          if (x !== y) {
+            console.info(`Pass: ${message}`)
+          } else {
+            console.error(`Fail: ${message}`)
+          }
+        }
+
       }
 
       //We call our test function with a label and an instance of the test, it replies with a formatted conclusion in the console
 
-      test("Correctly squares integers", () => {
+      test("Correctly squares integers", assertions => {
         const result = square(3);
         const expected = 9;
-        equal(result, expected)
+        assertions.equal(result, expected)
       })
-
-
 
     </script>
   </body>
